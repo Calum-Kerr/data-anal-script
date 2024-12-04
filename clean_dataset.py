@@ -4,12 +4,18 @@ import pandas as pd
 file_path = 'coursework2Dataset2024 (1).xlsx'
 df = pd.read_excel(file_path)
 
-# Fix 'purpose' column
+df['purpose'] = df['purpose'].str.strip().str.replace("'", "").str.lower()
+
+# Apply corrections to standardise categories
 df['purpose'] = df['purpose'].replace({
     'repars': 'repairs',
     'eduction': 'education',
-    'Radio/Tv': 'radio/tv',
-    'use car': 'used car'
+    'radio/tv': 'radio/tv',
+    'radio/tv': 'radio/tv',
+    'use car': 'used car',
+    'new car': 'new car',
+    'the': 'other',  # Assuming 'the' should be categorised as 'other'
+    'domestic appliance': 'domestic appliance'
 })
 
 # Fix 'age' column
@@ -27,7 +33,7 @@ df['age'] = df['age'].replace({
 # Fix 'job' column
 df['job'] = df['job'].replace({
     'good': 'skilled',
-    'poor': 'unskilled resident'
+    'poor': "'unskilled resident'"
 })
 
 # Fix 'credit_amount' column
